@@ -110,7 +110,7 @@ Copy the research output and save it to:
 
 ### 2.3 Create Custom Command
 
-In Claude Code, run this prompt:
+In Claude Code, run this prompt in plan mode:
 ```
 Following the Claude Code custom slash command best practices and use this
 @.claude/commands/generate-test-cases.md slash command as a template,
@@ -129,6 +129,18 @@ test plan and most importantly these best practices:
 Review the comprehensive test cases:
 - What coverage areas did it identify?
 - How detailed are the test steps?
+
+### 2.5 Run a Manual Test Case
+
+Ask the test-runner agent to execute one of the generated test cases:
+```
+@agent-test-runner can you run the @test-cases/TC-001-auth-valid-login.md  
+```
+
+Observe the execution:
+- How does the agent navigate the application?
+- What evidence does it capture (screenshots, video)?
+- How are results documented?
 
 ---
 
