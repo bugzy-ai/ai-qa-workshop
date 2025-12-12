@@ -16,7 +16,7 @@
       "command": "notion-mcp-server",
       "args": [],
       "env": {
-        "NOTION_TOKEN": "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"
+        "NOTION_TOKEN": "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"
       }
     }
   }
