@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "tool": "claude-code",
+  "project": {
+    "name": "ai-qa-workshop"
+  },
+  "subagents": {
+    "test-runner": "playwright",
+    "team-communicator": "local",
+    "test-code-generator": "playwright",
+    "test-debugger-fixer": "playwright"
+  }
+}

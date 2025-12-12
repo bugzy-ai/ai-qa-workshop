@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "mcp-server-playwright",
+      "args": [
+        "--browser",
+        "chromium",
+        "--secrets",
+        ".env",
+        "--no-sandbox",
+        "--viewport-size",
+        "1280x720"
+      ]
+    }
+  }
+}
