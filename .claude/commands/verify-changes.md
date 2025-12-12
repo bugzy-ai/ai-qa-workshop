@@ -444,7 +444,70 @@ The agent will:
 - Include fix description (e.g., "Updated selector from CSS to role-based")
 - Note verification status (test now passes)
 
-### Step 12: Generate Manual Verification Checklist
+### Step 12: Log Product Bugs
+
+## Log Product Bugs via Issue Tracker
+
+After triage, for tests classified as **[PRODUCT BUG]**, use the issue-tracker agent to log bugs:
+
+**DELEGATE TO SUBAGENT**: Use the Task tool with `subagent_type: "issue-tracker"` to create/update issues.
+The agent will interact with Jira. Include bug details and classification in the prompt.
+
+**For each bug to report:**
+
+1. **Check for duplicate bugs** in the tracking system
+   - The agent will automatically search for similar existing issues
+   - It maintains memory of recently reported issues
+   - Duplicate detection happens automatically
+
+2. **For each new bug (non-duplicate):**
+   Create detailed bug report with:
+   - **Title**: Clear, descriptive summary (e.g., "Login button fails with timeout on checkout page")
+   - **Description**:
+     - What happened vs. what was expected
+     - Impact on users
+     - Test reference: [file path] > [test title]
+   - **Reproduction Steps**:
+     - List steps from the failing test
+     - Include specific test data used
+     - Note any setup requirements from test file
+   - **Test Execution Details**:
+     - Test file: [file path from JSON report]
+     - Test name: [test title from JSON report]
+     - Error message: [from JSON report]
+     - Stack trace: [from JSON report]
+     - Trace file: [path if available]
+     - Screenshots: [paths if available]
+   - **Environment Details**:
+     - Browser and version (from Playwright config)
+     - Test environment URL (from .env.testdata BASE_URL)
+     - Timestamp of failure
+   - **Severity/Priority**: Based on:
+     - Test type (smoke tests = high priority)
+     - User impact
+     - Frequency (always fails vs flaky)
+
+3. **Track created issues:**
+   - Note the issue ID/number returned
+   - Update issue tracker memory with new bugs
+   - Prepare issue references for team communication
+
+**Summary of Bug Reporting:**
+```markdown
+### Bug Reporting Summary
+- Total bugs found: [count of FAIL tests classified as PRODUCT BUG]
+- New bugs reported: [count of newly created issues]
+- Duplicate bugs found: [count of duplicates detected]
+- Issues not reported: [count of skipped/known issues]
+
+**New Bug Reports**:
+- [Issue ID]: [Bug title] (Test: TC-XXX, Priority: [priority])
+
+**Duplicate Bugs** (already tracked):
+- [Existing Issue ID]: [Bug title] (Matches test: TC-XXX)
+```
+
+### Step 13: Generate Manual Verification Checklist
 
 Generate human-readable checklist for non-automatable scenarios:
 
@@ -514,7 +577,7 @@ Output:
 All user-facing changes are fully covered by automated tests.
 ```
 
-### Step 13: Aggregate Verification Results
+### Step 14: Aggregate Verification Results
 
 Combine automated and manual verification results:
 
@@ -536,7 +599,39 @@ Combine automated and manual verification results:
 [Safe to merge | Review bugs before merging | Do not merge]
 ```
 
-### Step 14: Report Results (Multi-Channel Output)
+### Step 15: Understanding the Change (Documentation Research)
+
+**DELEGATE TO SUBAGENT**: Use the Task tool with `subagent_type: "documentation-researcher"` to search docs.
+The agent will search Notion/Confluence. Include search query and context in the prompt. to gather comprehensive context about the changed features:
+
+Explore project documentation related to the changes.
+
+Specifically gather:
+- Product specifications for affected features
+- User stories and acceptance criteria
+- Technical architecture documentation
+- API endpoints and contracts
+- User roles and permissions relevant to the change
+- Business rules and validations
+- UI/UX specifications
+- Known limitations or constraints
+- Related bug reports or known issues
+- Existing test documentation for this area
+
+The agent will:
+1. Check its memory for previously discovered documentation
+2. Explore workspace for relevant pages and databases
+3. Build comprehensive understanding of the affected features
+4. Return synthesized information to inform testing strategy
+
+Use this information to:
+- Better understand the change context
+- Identify comprehensive test scenarios
+- Recognize integration points and dependencies
+- Spot potential edge cases or risk areas
+- Enhance manual verification checklist generation
+
+### Step 16: Report Results (Multi-Channel Output)
 
 Route output based on trigger source:
 
@@ -580,7 +675,7 @@ Output to CI build log (print detailed results to stdout) and exit with appropri
 
 Post PR comment if GitHub context available.
 
-### Step 15: Update Knowledge Base
+### Step 17: Update Knowledge Base
 
 ## Knowledge Base Maintenance
 
@@ -609,7 +704,7 @@ After completing your work, update the knowledge base with new insights.
 
 **Remember:** Every entry should answer "Will this help someone working on this project in 6 months?"
 
-### Step 16: Handle Special Cases
+### Step 18: Handle Special Cases
 
 **If no tests found for changed files:**
 - Inform user: "No automated tests found for changed files"

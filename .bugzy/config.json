@@ -7,6 +7,8 @@
   "subagents": {
     "test-runner": "playwright",
     "team-communicator": "local",
+    "issue-tracker": "notion",
+    "documentation-researcher": "notion",
     "test-code-generator": "playwright",
     "test-debugger-fixer": "playwright"
   }

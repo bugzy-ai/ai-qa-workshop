@@ -84,7 +84,23 @@ Read the test plan from `test-plan.md` to understand:
 - Identify existing Page Objects in `./tests/pages/`
 - Avoid creating overlapping test cases or duplicate automation
 
-### Step 6: Exploration Protocol
+### Step 6: Gather Product Documentation
+
+**DELEGATE TO SUBAGENT**: Use the Task tool with `subagent_type: "documentation-researcher"` to search docs.
+The agent will search Notion/Confluence. Include search query and context in the prompt. to gather comprehensive product documentation:
+
+```
+Explore all available product documentation, specifically focusing on:
+- UI elements and workflows
+- User interactions and navigation paths
+- Form fields and validation rules
+- Error messages and edge cases
+- Authentication and authorization flows
+- Business rules and constraints
+- API endpoints for test data setup
+```
+
+### Step 7: Exploration Protocol
 
 ## Exploratory Testing Protocol
 
@@ -308,7 +324,7 @@ Are requirements clear with specifics?
 - **Always document** - Create artifacts for future reference
 - **Link exploration → ambiguity → clarification** - Connect the workflow
 
-### Step 7: Clarification Protocol
+### Step 8: Clarification Protocol
 
 ## Clarification Protocol
 
@@ -504,7 +520,7 @@ When reporting test results, always include an "Ambiguities" section if clarific
 - **Check memory first** - Avoid re-asking previously answered questions
 - **Specific questions → specific answers** - Vague questions get vague answers
 
-### Step 8: Organize Test Scenarios by Area
+### Step 9: Organize Test Scenarios by Area
 
 Based on exploration and documentation, organize test scenarios by feature area/component:
 
@@ -543,7 +559,7 @@ Example structure:
 - **Authentication**: TC-001 Valid login (smoke, automate), TC-002 Invalid password (automate), TC-003 Password reset (automate)
 - **Dashboard**: TC-004 View dashboard widgets (smoke, automate), TC-005 Filter data by date (automate), TC-006 Export data (manual - rare use)
 
-### Step 9: Generate All Manual Test Case Files
+### Step 10: Generate All Manual Test Case Files
 
 Generate ALL manual test case markdown files in the `./test-cases/` directory BEFORE invoking the test-code-generator agent.
 
@@ -567,7 +583,7 @@ Generate ALL manual test case markdown files in the `./test-cases/` directory BE
 
 **Output**: All manual test case markdown files created in `./test-cases/` with automation flags set
 
-### Step 10: Automate Test Cases Area by Area
+### Step 11: Automate Test Cases Area by Area
 
 **IMPORTANT**: Process each feature area separately to enable incremental, focused test creation.
 
@@ -629,7 +645,7 @@ Move to the next area and repeat until all areas are complete.
 - Easier to manage and track progress
 - Can pause/resume between areas if needed
 
-### Step 11: Validate Generated Test Artifacts
+### Step 12: Validate Generated Test Artifacts
 
 ## Validate Generated Test Artifacts
 
@@ -669,7 +685,7 @@ After test generation completes, verify all artifacts meet quality standards:
 - [ ] No hardcoded test data (uses environment variables)
 - [ ] Tests are syntactically valid TypeScript
 
-### Step 12: Create Directories if Needed
+### Step 13: Create Directories if Needed
 
 Ensure required directories exist:
 ```bash
@@ -681,7 +697,7 @@ mkdir -p ./tests/fixtures
 mkdir -p ./tests/helpers
 ```
 
-### Step 13: Extract Environment Variables
+### Step 14: Extract Environment Variables
 
 ## Extract Environment Variables
 
@@ -720,7 +736,7 @@ TEST_API_KEY=secret_key_here
 
 **Rule**: Any variable with PASSWORD, SECRET, TOKEN, or KEY in the name is a secret.
 
-### Step 14: Update Knowledge Base
+### Step 15: Update Knowledge Base
 
 ## Knowledge Base Maintenance
 
@@ -749,7 +765,7 @@ After completing your work, update the knowledge base with new insights.
 
 **Remember:** Every entry should answer "Will this help someone working on this project in 6 months?"
 
-### Step 15: Team Communication
+### Step 16: Team Communication
 
 **TEAM COMMUNICATION**: Read `.claude/agents/team-communicator.md` and follow its instructions to communicate with the team.
 Use the tools and guidelines specified in that file within this context. Do NOT spawn a sub-agent. to notify the product team about the new test cases and automated tests:
@@ -783,7 +799,7 @@ The team communication should include:
 - Track team feedback on automation approach
 - Document any clarifications requested
 
-### Step 16: Final Summary
+### Step 17: Final Summary
 
 Provide a comprehensive summary showing:
 
