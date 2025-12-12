@@ -1,0 +1,64 @@
+{
+  "steps": [
+    {
+      "index": 1,
+      "timestamp": "2025-12-12T11:44:40Z",
+      "videoTimeSeconds": 0,
+      "action": "Navigate to application homepage",
+      "status": "success",
+      "description": "Navigated to https://storzy.vercel.app - Application displays login page as entry point. No homepage accessible without authentication. Login form shows test credentials (test_user / password). No registration link or guest checkout option visible.",
+      "technicalDetails": "URL: https://storzy.vercel.app/ - Login required for access"
+    },
+    {
+      "index": 2,
+      "timestamp": "2025-12-12T11:45:12Z",
+      "videoTimeSeconds": 32,
+      "action": "Login and explore product catalog",
+      "status": "success",
+      "description": "Logged in successfully and reached product inventory page at /inventory. Products displayed in grid layout with 6 items visible (Baby Onesie, Bold Graphic Tee, Cozy Fleece Jacket, Explorer Backpack, Flight Jacket, LED Bike Light). Each product shows: image, name, description, price, and 'Add to Cart' button. NO individual product detail pages exist - clicking product headings does not navigate. Cart icon in header shows item count (initially 0).",
+      "technicalDetails": "Navigation: Products link, Cart icon with badge, Logout button. Username displayed as '(test_user)' in header."
+    },
+    {
+      "index": 3,
+      "timestamp": "2025-12-12T11:46:05Z",
+      "videoTimeSeconds": 85,
+      "action": "Discover and document sort options",
+      "status": "success",
+      "description": "DISCOVERED SORT OPTIONS (answers [TO BE EXPLORED] #2):\n- Name (A to Z) - default selected\n- Name (Z to A)\n- Price (Low to High)\n- Price (High to Low)\n\nDISCOVERED: NO PRODUCT FILTERS (answers [TO BE EXPLORED] #1):\n- No category filters visible\n- No price range filters\n- No search functionality\n- No product filtering capabilities exist in the application",
+      "technicalDetails": "Sort dropdown: combobox with 4 options. No filter UI elements found on page."
+    },
+    {
+      "index": 4,
+      "timestamp": "2025-12-12T11:46:45Z",
+      "videoTimeSeconds": 125,
+      "action": "Test add to cart and explore cart functionality",
+      "status": "success",
+      "description": "Added Baby Onesie ($7.99) to cart. Cart badge updated from 0 to 1. Product card changed to show 'Remove' button and quantity '1'. Navigated to cart page (/cart). Cart displays: product image, name, price, quantity controls (+/- buttons), remove button (trash icon), and Order Summary with Subtotal ($7.99), Tax ($0.64), and Total ($8.63). Cart functionality working as expected.",
+      "technicalDetails": "Cart URL: /cart. Quantity controls: increment/decrement buttons. Tax calculated automatically at 8%."
+    },
+    {
+      "index": 5,
+      "timestamp": "2025-12-12T11:47:30Z",
+      "videoTimeSeconds": 170,
+      "action": "Explore checkout flow and shipping options",
+      "status": "success",
+      "description": "Clicked 'Proceed to Checkout' and reached checkout page (/checkout). Page titled 'Checkout: Your Information'. Form fields: First Name, Last Name, Postal Code (all required textboxes), Country (dropdown with options: Select Country, United States, Canada, United Kingdom, Germany, France).\n\nDISCOVERED SHIPPING METHODS (answers [TO BE EXPLORED] #3):\n1. Standard Shipping (5-7 days) - Free (radio button)\n2. Express Shipping (2-3 days) - $9.99 (radio button)\n3. Overnight Shipping (1 day) - $19.99 (radio button)\n\nOrder Summary displayed on right side. Continue and Cancel buttons at bottom. Filled form with test data (John Doe, 12345, United States) and selected Standard Shipping.",
+      "technicalDetails": "Checkout URL: /checkout. Single-step checkout process. No separate billing/shipping address screens. No payment method selection visible in this step."
+    },
+    {
+      "index": 6,
+      "timestamp": "2025-12-12T11:48:20Z",
+      "videoTimeSeconds": 220,
+      "action": "Complete checkout and search for account features",
+      "status": "success",
+      "description": "Clicked Continue and order completed immediately. Redirected to /checkout-complete with success message: 'Thank You For Your Order - Your order has been completed successfully.' Cart badge reset to 0. Clicked 'Back Home' which logged user out and returned to login page.\n\nDISCOVERED - NO ACCOUNT FEATURES (answers [TO BE EXPLORED] #4, #5, #6):\n- NO ADDRESS BOOK: No saved addresses feature exists\n- NO ORDER TRACKING: No order history or order status tracking available\n- NO ACCOUNT/PROFILE PAGE: Clicking username does nothing, no account navigation\n- NO GUEST CHECKOUT: Login required to access application, no 'Continue as Guest' option\n- NO REGISTRATION: No sign-up or create account option visible\n\nApplication uses hardcoded test credentials only (test_user/password).",
+      "technicalDetails": "Checkout complete URL: /checkout-complete. No payment processing (order completes without payment). No account management features implemented. Session ends after checkout completion."
+    }
+  ],
+  "summary": {
+    "totalSteps": 6,
+    "successfulSteps": 6,
+    "failedSteps": 0,
+    "skippedSteps": 0
+  }
+}

@@ -10,51 +10,128 @@
 
 ## Project Knowledge
 
-_This knowledge base will be populated as you work. Add new discoveries, update existing understanding, and remove outdated information following the maintenance guide principles._
+### Application Overview
 
-### When to Update This File
+**Storzy** is a simplified demonstration e-commerce platform hosted on Vercel at https://storzy.vercel.app. It provides core shopping functionality (product browsing, cart, checkout) but intentionally lacks many standard e-commerce features.
 
-- **ADD**: New factual information discovered, new patterns emerge, new areas become relevant
-- **UPDATE**: Facts change, understanding deepens, multiple facts can be consolidated, language can be clarified
-- **REMOVE**: Information becomes irrelevant, facts proven incorrect, entries superseded by better content
-
-### Format Guidelines
-
-- Use clear, declarative statements in present tense
-- State facts confidently when known; flag uncertainty when it exists
-- Write for someone reading this 6 months from now
-- Keep entries relevant and actionable
-- Favor consolidation over accumulation
-
----
-
-## Example Structure
-
-Below is an example structure. Feel free to organize knowledge in the way that makes most sense for this project:
-
-### Architecture & Infrastructure
-
-_System architecture, deployment patterns, infrastructure details_
-
-### Testing Patterns
-
-_Test strategies, common test scenarios, testing conventions_
-
-### UI/UX Patterns
-
-_User interface conventions, interaction patterns, design system details_
-
-### Data & APIs
-
-_Data models, API behaviors, integration patterns_
-
-### Known Issues & Workarounds
-
-_Current limitations, known bugs, and their workarounds_
+**Key Characteristics:**
+- Authentication required for all access (no guest browsing)
+- Test credentials displayed on login page: test_user / password
+- Single-page checkout (no multi-step wizard)
+- No payment processing (orders complete instantly)
+- Auto-logout after checkout completion
+- Fixed 8% tax rate
 
 ### Domain Knowledge
 
-_Business domain facts, terminology, rules, and context_
+**Features That Exist:**
+| Feature | Details |
+|---------|---------|
+| Login | Username/password authentication |
+| Product Catalog | 6 products displayed in grid |
+| Product Sorting | 4 options: Name A-Z, Name Z-A, Price Low-High, Price High-Low |
+| Add to Cart | Button on each product card |
+| Cart Management | Quantity controls (+/-), remove button, subtotal calculation |
+| Cart Badge | Shows item count in header |
+| Checkout | Single form: name, postal code, country, shipping method |
+| Shipping Methods | Standard (Free), Express ($9.99), Overnight ($19.99) |
+| Order Confirmation | Thank you page with "Back Home" button |
+| Logout | Button in header |
+
+**Features That DO NOT Exist:**
+- Product filtering or search
+- Individual product detail pages
+- Guest checkout
+- User registration
+- Account/profile management
+- Address book
+- Order history or tracking
+- Payment processing
+- Wishlist
+- Product reviews
+- Forgot password
+
+### Navigation Structure
+
+```
+/ (Login) --> /inventory --> /cart --> /checkout --> /checkout-complete
+```
+
+All pages except login require authentication. After checkout completion, clicking "Back Home" logs the user out.
+
+### Testing Patterns
+
+**Priority Test Areas:**
+| Priority | Features |
+|----------|----------|
+| High | Login, Complete Checkout Flow (end-to-end), Cart Operations |
+| Medium | Product Sorting, Cart Quantity Controls, Shipping Method Selection |
+| Low | Form Validation, Cancel Checkout, Edge Cases |
+
+**Test Data:**
+- Credentials: test_user / password
+- Sample product: Baby Onesie ($7.99)
+- Tax calculation: 8% of subtotal
+- Example total: $7.99 + $0.64 tax = $8.63
+
+### UI Selectors (Playwright)
+
+**Login Page:**
+```javascript
+page.getByRole('textbox', { name: 'Username' })
+page.getByRole('textbox', { name: 'Password' })
+page.getByRole('button', { name: 'Login' })
+```
+
+**Product Inventory:**
+```javascript
+page.getByRole('combobox') // Sort dropdown
+page.getByRole('button', { name: 'Add to Cart' }) // Per product
+```
+
+**Cart:**
+```javascript
+page.getByRole('button', { name: 'Proceed to Checkout' })
+// Quantity: "-" and "+" buttons
+```
+
+**Checkout:**
+```javascript
+page.getByRole('combobox') // Country dropdown
+page.getByRole('radio', { name: /Standard Shipping/ })
+page.getByRole('radio', { name: /Express Shipping/ })
+page.getByRole('radio', { name: /Overnight Shipping/ })
+page.getByRole('button', { name: 'Continue' })
+page.getByRole('button', { name: 'Cancel' })
+```
+
+**Order Complete:**
+```javascript
+page.getByRole('button', { name: 'Back Home' })
+```
+
+### Technical Infrastructure
+
+**Environment:**
+- Hosting: Vercel
+- URL: https://storzy.vercel.app
+- Framework: Likely React/Next.js (modern web app)
+
+**Playwright Configuration:**
+- Browser: Chromium
+- Viewport: 1280x720
+- Timeouts: 30s global, 5s assertion
+
+**Console Observations:**
+- Warning about input autocomplete attributes
+- No critical errors
+
+### Environment Variables
+
+Test data configuration in `.env.testdata`:
+- `TEST_BASE_URL=https://storzy.vercel.app`
+- `TEST_USER_EMAIL=test_user`
+- Password stored in `.env` (not in testdata file)
 
 ---
 
