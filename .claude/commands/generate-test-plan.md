@@ -90,34 +90,7 @@ Use the product description provided directly in the arguments, enriched with pr
 
 Create a list to track all TEST_ prefixed environment variables discovered throughout the process.
 
-### Step 8: Gather Comprehensive Project Documentation
-
-**DELEGATE TO SUBAGENT**: Use the Task tool with `subagent_type: "documentation-researcher"` to search docs.
-The agent will search Notion/Confluence. Include search query and context in the prompt. to explore and gather all available project information and other documentation sources. This ensures the test plan is based on complete and current information.
-
-```
-Explore all available project documentation related to: $ARGUMENTS
-
-Specifically gather:
-- Product specifications and requirements
-- User stories and acceptance criteria
-- Technical architecture documentation
-- API documentation and endpoints
-- User roles and permissions
-- Business rules and validations
-- UI/UX specifications
-- Known limitations or constraints
-- Existing test documentation
-- Bug reports or known issues
-```
-
-The agent will:
-1. Check its memory for previously discovered documentation
-2. Explore workspace for relevant pages and databases
-3. Build a comprehensive understanding of the product
-4. Return synthesized information about all discovered documentation
-
-### Step 9: Exploration Protocol
+### Step 8: Exploration Protocol
 
 ## Exploratory Testing Protocol
 
@@ -341,7 +314,7 @@ Are requirements clear with specifics?
 - **Always document** - Create artifacts for future reference
 - **Link exploration → ambiguity → clarification** - Connect the workflow
 
-### Step 10: Clarification Protocol
+### Step 9: Clarification Protocol
 
 ## Clarification Protocol
 
@@ -537,7 +510,7 @@ When reporting test results, always include an "Ambiguities" section if clarific
 - **Check memory first** - Avoid re-asking previously answered questions
 - **Specific questions → specific answers** - Vague questions get vague answers
 
-### Step 11: Prepare Test Plan Generation Context
+### Step 10: Prepare Test Plan Generation Context
 
 **After ensuring requirements are clear through exploration and clarification:**
 
@@ -547,7 +520,7 @@ Based on the gathered information:
 - **testPlan**: Use the standard test plan template structure, enriched with documentation findings
 - **gaps**: Identify areas lacking documentation that will need exploration
 
-### Step 12: Generate Test Plan Using Simplified Format
+### Step 11: Generate Test Plan Using Simplified Format
 
 You are an expert QA Test Plan Writer. Generate a **concise** test plan (~50-100 lines) that serves as a feature checklist for test case generation.
 
@@ -571,7 +544,7 @@ You are an expert QA Test Plan Writer. Generate a **concise** test plan (~50-100
 - DO NOT generate values for env vars, only keys
 - Track all TEST_ variables for extraction to .env.testdata in the next step
 
-### Step 13: Create Test Plan File
+### Step 12: Create Test Plan File
 
 Read the simplified template from `.bugzy/runtime/templates/test-plan-template.md` and fill it in:
 
@@ -586,11 +559,11 @@ Read the simplified template from `.bugzy/runtime/templates/test-plan-template.m
    - LOW: Mark with [TO BE EXPLORED: detail]
 5. Keep total document under 100 lines
 
-### Step 14: Save Test Plan
+### Step 13: Save Test Plan
 
 Save to `test-plan.md` in project root. The template already includes frontmatter - just fill in the dates.
 
-### Step 15: Extract and Save Environment Variables
+### Step 14: Extract and Save Environment Variables
 
 **CRITICAL**: Test data values must ONLY go to .env.testdata, NOT in the test plan document.
 
@@ -631,7 +604,7 @@ After saving the test plan:
    - Ensure test plan references `.env.testdata` for test data requirements
    - Add instruction: "Fill in actual values in .env.testdata before running tests"
 
-### Step 16: Update Knowledge Base
+### Step 15: Update Knowledge Base
 
 ## Knowledge Base Maintenance
 
@@ -660,7 +633,7 @@ After completing your work, update the knowledge base with new insights.
 
 **Remember:** Every entry should answer "Will this help someone working on this project in 6 months?"
 
-### Step 17: Team Communication
+### Step 16: Team Communication
 
 **TEAM COMMUNICATION**: Read `.claude/agents/team-communicator.md` and follow its instructions to communicate with the team.
 Use the tools and guidelines specified in that file within this context. Do NOT spawn a sub-agent. to notify the product team about the new test plan:
@@ -686,7 +659,7 @@ The team communication should include:
 - Note this as a test plan creation communication
 - Track team response to this type of update
 
-### Step 18: Final Summary
+### Step 17: Final Summary
 
 Provide a summary of:
 - Test plan created successfully at `test-plan.md`

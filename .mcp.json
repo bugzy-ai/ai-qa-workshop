@@ -11,13 +11,6 @@
         "--viewport-size",
         "1280x720"
       ]
-    },
-    "notion": {
-      "command": "notion-mcp-server",
-      "args": [],
-      "env": {
-        "NOTION_TOKEN": "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"
-      }
     }
   }
 }
