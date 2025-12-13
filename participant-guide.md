@@ -7,15 +7,37 @@ Follow along with this guide during the workshop. Each exercise builds on the pr
 ## Prerequisites
 
 Before the workshop, ensure you have:
-- **Node.js 18+** installed
-- **Anthropic API key** (set as `ANTHROPIC_API_KEY` environment variable)
+- **Node.js 18+** - [nodejs.org](https://nodejs.org) (includes npm)
+- **pnpm** (optional) - `npm install -g pnpm`
+- **git** - [git-scm.com](https://git-scm.com/downloads)
 - A code editor (VS Code recommended)
+
+### Claude Code Access (Choose One)
+- Install: `npm install -g @anthropic-ai/claude-code`
+
+**Option A: Claude Pro/Max** ✓ RECOMMENDED
+- Subscribe at [claude.ai/pro](https://claude.ai/pro)
+- Pro ($20/month) works, but Max ($100/month) recommended for best experience (Pro may run out of credits)
+
+**Option B: Anthropic API (~$5-10)**
+- Create account at [console.anthropic.com](https://console.anthropic.com)
+- Set env: `ANTHROPIC_API_KEY`
+
+**Option C: Z.AI GLM ($3/month)** - Budget
+- [Setup docs](https://z.ai)
+- Note: Some features may differ from Claude
 
 ---
 
 ## Setup
 
-### Option 1: Install Bugzy globally
+### Option 1: Clone the workshop repository
+```bash
+git clone git@github.com:bugzy-ai/ai-qa-workshop.git
+cd ai-qa-workshop
+```
+
+### Option 2: Install Bugzy globally
 ```bash
 npm install -g @bugzy-ai/bugzy
 
@@ -24,12 +46,6 @@ bugzy setup
 ```
 
 > **Note:** During setup, skip the subagent configuration step - we'll configure these together during the workshop.
-
-### Option 2: Clone the workshop repository
-```bash
-git clone git@github.com:bugzy-ai/ai-qa-workshop.git
-cd ai-qa-workshop
-```
 
 ### Start Claude Code
 
@@ -69,6 +85,8 @@ TEST_BASE_URL=https://storzy.vercel.app
 # Standard test user for checkout flow testing
 TEST_USER_EMAIL=test_user
 ```
+
+> **Note:** The Storzy application source code is available at [github.com/bugzy-ai/storzy](https://github.com/bugzy-ai/storzy). You can clone and run it locally if you want to customize the test configuration.
 
 **`.env`** - Sensitive credentials (not committed):
 ```
@@ -171,7 +189,20 @@ Tests should pass on the current build.
 
 ## Exercise 5: Self-Healing & Triage
 
+> **Prerequisites:** These demos require running Storzy locally to toggle feature flags.
+>
+> 1. Clone the repo: `git clone https://github.com/bugzy-ai/storzy.git`
+> 2. Install dependencies: `cd storzy && npm install`
+> 3. Start the dev server: `npm run dev`
+> 4. Update your `.env.testdata` file: `TEST_BASE_URL=http://localhost:3000`
+
 ### Scenario 1: UI Changes (Demo)
+
+**Setup:** Enable the improved checkout flow by creating/editing `.env.local` in the Storzy project:
+```
+NEXT_PUBLIC_IMPROVED_CHECKOUT=true
+```
+Restart the dev server after making changes.
 
 A new version is deployed with an improved checkout flow:
 - Watch tests fail due to UI changes
@@ -179,6 +210,12 @@ A new version is deployed with an improved checkout flow:
 - Discuss self-healing test strategies
 
 ### Scenario 2: Real Bug (Demo)
+
+**Setup:** Enable the add-to-cart bug by setting in `.env.local`:
+```
+NEXT_PUBLIC_ADD_TO_CART_BUG=true
+```
+Restart the dev server after making changes.
 
 A build is deployed that introduces an actual bug:
 - Watch tests fail due to the real bug
